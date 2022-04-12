@@ -5,7 +5,7 @@
 
 #git add .
 #git commit -m "doco"
-#git push -u origin main
+#git push -u
 
 import streamlit as st
 from PIL import Image
