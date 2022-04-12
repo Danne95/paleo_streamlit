@@ -3,6 +3,10 @@
 #streamlit run main.py
 #streamlit run main.py --server.port=80
 
+#git add .
+#git commit -m "doco"
+#git push -u origin main
+
 import streamlit as st
 from PIL import Image
 import pandas as pd
