@@ -54,5 +54,3 @@ def predict_image(image, class_model, subclass_model):
     subclass_predictions = subclass_model.predict(patches)
     subclass_prediction = np.argmax(subclass_predictions, axis=1)
     return np.argmax(np.bincount(class_prediction)), np.argmax(np.bincount(subclass_prediction))
-
-print(opencv-contrib-python.__version__)
