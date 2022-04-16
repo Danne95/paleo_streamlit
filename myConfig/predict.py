@@ -1,3 +1,4 @@
+
 import cv2
 import keras
 import numpy as np
@@ -54,4 +55,4 @@ def predict_image(image, class_model, subclass_model):
     subclass_prediction = np.argmax(subclass_predictions, axis=1)
     return np.argmax(np.bincount(class_prediction)), np.argmax(np.bincount(subclass_prediction))
 
-print(cv2.__version__)
+print(opencv-contrib-python.__version__)

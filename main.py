@@ -7,12 +7,13 @@
 """
     keras<=2.8.0
     numpy<=1.17.4
+    opencv-python-headless<=4.5.4.60
     opencv_python<=4.5.4.60
+    opencv-contrib-python<=4.5.4
     pandas<=1.3.5
     Pillow<=9.1.0
     streamlit<=1.8.1
     tensorflow<=2.8.0
-    opencv-python<=4.5.4
 """
 
 #git pull
