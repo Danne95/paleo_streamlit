@@ -4,13 +4,23 @@
 #streamlit run main.py --server.port=80
 
 #pipreqs ./ --force #for requirements
+"""
+    keras<=2.8.0
+    numpy<=1.17.4
+    opencv_python<=4.5.4.60
+    pandas<=1.3.5
+    Pillow<=9.1.0
+    streamlit<=1.8.1
+    tensorflow<=2.8.0
+    opencv-python<=4.5.4
+"""
 
 #git pull
 #git add .
 #git commit -m "text"
 #git push -u
 
-from unittest import result
+
 import streamlit as st
 from PIL import Image
 import pandas as pd

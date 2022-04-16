@@ -2,6 +2,7 @@ import cv2
 import keras
 import numpy as np
 
+
 const_classes = {"ashkenazi":0, "byzantine":1, "italian":2, "oriental":3, "sephardic":4, "yemenite":5}
 const_subclasses = {"cursive":0, "semisquare":1, "square":2}
 
@@ -52,3 +53,5 @@ def predict_image(image, class_model, subclass_model):
     subclass_predictions = subclass_model.predict(patches)
     subclass_prediction = np.argmax(subclass_predictions, axis=1)
     return np.argmax(np.bincount(class_prediction)), np.argmax(np.bincount(subclass_prediction))
+
+print(cv2.__version__)
