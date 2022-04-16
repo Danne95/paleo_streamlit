@@ -34,6 +34,10 @@ def preprocess_image(img, method = None):
     return np.array(patches)
 
 def predict_image(image, class_model, subclass_model):
+    #testing while models files are missing
+    if (class_model==1 and subclass_model==2):
+        return ("this is a testing print.\ngood job making it so far!\nyou are still missing models paths and/or files")
+
     if type(image) == str:
         image = cv2.imread(image)
     if type(class_model) == str:
