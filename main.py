@@ -26,7 +26,7 @@ from PIL import Image
 import pandas as pd
 import tensorflow as tf
 import keras
-from predict import predict_image
+from myConfig.predict import predict_image
 
 class_model = 1 #keras.models.load_model("/home/historicalmanuscripts/paleo_site/keras_models_v1/Priya_Dwivedi_classes_v1_10e_05d")
 subclass_model = 2 #keras.models.load_model("/home/historicalmanuscripts/paleo_site/keras_models_v1/Priya_Dwivedi_subclasses_v1_10e_05d")
