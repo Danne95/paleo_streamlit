@@ -63,6 +63,7 @@ if choice == "model by SCE":
         
         # resize image
         #resized = cv2.resize(img, (int(img.shape[1] / 20), int(img.shape[0] / 20)), interpolation = cv2.INTER_AREA)
+        
         # To view uploaded image
         with cols[0]:
             st.header("Your manuscript:")
