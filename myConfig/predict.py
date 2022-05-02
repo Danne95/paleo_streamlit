@@ -8,10 +8,11 @@ import os
 
 const_classes = {"ashkenazi":0, "byzantine":1, "italian":2, "oriental":3, "sephardic":4, "yemenite":5}
 const_subclasses = {"cursive":0, "semisquare":1, "square":2}
-class_model = tf.keras.models.load_model(("/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_classes_otsu/lr0.0001"))
-subclass_model = tf.keras.models.load_model("/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")
-class_model.load_weights("/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")
-subclass_model.load_weights("/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")
+print(os.getcwd())
+class_model = tf.keras.models.load_model(("myConfig/models/MobileNetV2_classes_otsu/lr0.0001"))
+subclass_model = tf.keras.models.load_model("myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")
+class_model.load_weights("myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")
+subclass_model.load_weights("myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")
 
 def patchifier(img, method = None):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
