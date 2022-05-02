@@ -18,6 +18,7 @@ def patchifier(img, method = None):
               if method == "inv_otsu":
                 cropped = cv2.GaussianBlur(cropped,(5,5),0)
                 _,cropped = cv2.threshold(cropped,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+                cropped = cv2.cvtColor(cropped,cv2.COLOR_GRAY2BGR)
             patches.append(cropped)
     return patches
 
@@ -53,4 +54,11 @@ def predict_image(image, class_model, subclass_model):
     class_prediction = np.argmax(class_predictions, axis=1)
     subclass_predictions = subclass_model.predict(patches)
     subclass_prediction = np.argmax(subclass_predictions, axis=1)
-    return np.argmax(np.bincount(class_prediction)), np.argmax(np.bincount(subclass_prediction))
+    class_bins = np.bincount(class_prediction)
+    class_bins = np.divide(class_bins,sum(class_bins))
+    subclass_bins = np.bincount(subclass_prediction)
+    subclass_bins = np.divide(subclass_bins,sum(subclass_bins))
+    return {"class":np.argmax(class_bins), "subclass":np.argmax(subclass_bins), "class_bins" : class_bins, "subclass_bins":subclass_bins}
+
+def revert(prediction):
+    return "{0} {1}".format(list(const_classes.keys())[prediction[0]],list(const_subclasses.keys())[prediction[1]])
