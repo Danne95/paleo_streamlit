@@ -5,14 +5,18 @@ import numpy as np
 import tensorflow as tf
 import os
 
-
 const_classes = {"ashkenazi":0, "byzantine":1, "italian":2, "oriental":3, "sephardic":4, "yemenite":5}
 const_subclasses = {"cursive":0, "semisquare":1, "square":2}
-print(os.getcwd())
-class_model = tf.keras.models.load_model(("myConfig/models/MobileNetV2_classes_otsu/lr0.0001"))
-subclass_model = tf.keras.models.load_model("myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")
-class_model.load_weights("myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")
-subclass_model.load_weights("myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")#"/home/historicalmanuscripts/paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")
+if (os.getcwd() == '/home/historicalmanuscripts'):
+    class_model = tf.keras.models.load_model("paleo_site/myConfig/models/MobileNetV2_classes_otsu/lr0.0001")
+    subclass_model = tf.keras.models.load_model("paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")
+    class_model.load_weights("paleo_site/myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")
+    subclass_model.load_weights("paleo_site/myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")
+else:
+    class_model = tf.keras.models.load_model("myConfig/models/MobileNetV2_classes_otsu/lr0.0001")
+    subclass_model = tf.keras.models.load_model("myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001")
+    class_model.load_weights("myConfig/models/MobileNetV2_classes_otsu/lr0.0001/cp-0092.ckpt")
+    subclass_model.load_weights("myConfig/models/MobileNetV2_subclasses_otsu/lr0.0001/cp-0003.ckpt")
 
 def patchifier(img, method = None):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -47,7 +51,6 @@ def predict_image(image, class_model, subclass_model):
     #testing while models files are missing
     if (class_model==1 and subclass_model==2):
         return ("this is a testing print.\ngood job making it so far!\nyou are still missing models paths and/or files")
-
     if type(image) == str:
         image = cv2.imread(image)
     if type(class_model) == str:
