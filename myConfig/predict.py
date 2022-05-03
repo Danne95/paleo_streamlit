@@ -4,6 +4,7 @@ import keras
 import numpy as np
 import tensorflow as tf
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 const_classes = {"ashkenazi":0, "byzantine":1, "italian":2, "oriental":3, "sephardic":4, "yemenite":5}
 const_subclasses = {"cursive":0, "semisquare":1, "square":2}
