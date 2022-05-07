@@ -11,10 +11,10 @@
 
 # bash commands for streamlit-server
 #terminal:
-#streamlit run main2.py
-#streamlit run paleo_site/main2.py
+#streamlit run main.py
+#streamlit run paleo_site/main.py
 #nohup streamlit run yourscript.py
-#streamlit run paleo_site/main2.py --server.port=80
+#streamlit run paleo_site/main.py --server.port=80
 
 # git commands for streamlit-cloud
 #cd paleo_site
@@ -35,50 +35,49 @@ import myConfig.predict as myPred
 import cv2
 import numpy as np
 
-def start_prediction(image_file, image_name):
-    image_file = cv2.cvtColor(np.array(image_file), cv2.COLOR_RGB2BGR)
-    with rows[3][0]:
-        st.header("Prediction:")
+def load_image(image_file):
+    return Image.open(image_file)
+
+def start_prediction(image_file, image_name, col):
+    with col:
+        st.header("prediction:")
         prediction = myPred.predict_image(image_file,myPred.class_model,myPred.subclass_model)
+        #print(prediction["class_bins"])
         st.write("We think \'{}\' is: \n".format(image_name)+myPred.revert((prediction["class"],prediction["subclass"])))
         st.write("Class confidence: {:.2f}\n".format(max(prediction["class_bins"])*100))
         st.write("Sublass confidence: {:.2f}\n".format(max(prediction["subclass_bins"])*100))
 
-def on_model_select():
-    with rows[2][0]:
-        st.subheader("Step 3:click the predict button to the left")
-    with rows[2][1]:
-        st.button(label="Predict", on_click=start_prediction, args = (img,image_file.name))
-
 st.set_page_config(page_title="Palaeography Classification", page_icon=":crystal_ball:", layout="wide") #has to be first line!
 
-st.title("Hebrew paleography classifier web application!")
-st.write("[Learn more about paleography>](https://en.wikipedia.org/wiki/Palaeography)")
+menu = ["", "model by SCE", "model by BGU"]
+choice = st.sidebar.selectbox("Choose model", menu)
 
-#scrolldown_img = Image.open("scrolldown.gif")
+if choice == '':
+    st.title("Welcome to our paleography web application!")
+    st.write("[Learn more about paleography>](https://en.wikipedia.org/wiki/Palaeography)")
+    st.write("step 1:choose a model from the menu on the left")
+    st.write("step 2:upload a document image")
+    st.write("step 3:click the predict button located under the uploaded image")
 
-rows = [st.columns([3,4]),st.columns([3,4]),st.columns([3,4]),st.columns([3,4])]
-with rows[0][0]:
-    st.header("Instructions:")
-    st.subheader("Step 1:upload a document image")
 
-
-with rows[0][1]:
-    st.header("Process:")
+elif choice == "model by SCE":
+    st.title("model by SCE:")
     image_file = st.file_uploader("Upload Image:", type=["png","jpg","jpeg"])
     if image_file is not None:
-        with rows[0][0]:
-            st.image("scrolldown.gif")
+        cols = st.columns(2)
         # process image file
-        img = Image.open(image_file)
+        img = load_image(image_file)
+        
         # resize image
         #resized = cv2.resize(img, (int(img.shape[1] / 20), int(img.shape[0] / 20)), interpolation = cv2.INTER_AREA)
-            
+        
         # To view uploaded image
+        with cols[0]:
+            st.header("manuscript:")
             #st.image(resized, channels='BGR', use_column_width = True)
-        st.image(img, use_column_width = True)
-        with rows[1][1]:
-            global choice
-            choice = st.radio("Model selection:", (' ', 'SCE', 'BGU', 'Both'),on_change =on_model_select)
-        with rows[1][0]:
-            st.subheader("Step 2:choose a model from the radio buttons")
+            st.image(img, use_column_width = True)
+            st.button(label="Predict", on_click=start_prediction, args = (cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR),image_file.name, cols[1]))
+
+elif choice == "model by BGU:":
+    st.title("model by BGU")
+    st.write("work in progress")
