@@ -34,6 +34,8 @@ from PIL import Image
 import myConfig.predict as myPred
 import cv2
 import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 def start_prediction(image_file, image_name):
     image_file = cv2.cvtColor(np.array(image_file), cv2.COLOR_RGB2BGR)
